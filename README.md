@@ -1,6 +1,6 @@
+Made by Raj 
 
-
-About This Course:
+About This Project:
 
 -   🚀 Project Setup
 -   🗄️ MongoDB & Redis Integration
