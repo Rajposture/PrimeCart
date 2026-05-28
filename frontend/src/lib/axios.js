@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
 	baseURL:
-		import.meta.env.MODE === "development"
+		import.meta.env.MODE === "production"
 			? "http://localhost:5000/api"
 			: "https://primecart-8439.onrender.com/api",
 

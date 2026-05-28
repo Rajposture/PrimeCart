@@ -28,8 +28,8 @@ const __dirname =
 app.use(
 	cors({
 		origin: [
-			"http://localhost:5173",
 			"https://prime-cart-one.vercel.app",
+			"http://localhost:5173",
 		],
 		credentials: true,
 	})
