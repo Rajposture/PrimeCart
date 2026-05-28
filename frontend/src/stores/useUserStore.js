@@ -119,27 +119,35 @@ export const useUserStore = create((set, get) => ({
 	   CHECK AUTH
 	========================= */
 
-	checkAuth: async () => {
-		set({ checkingAuth: true });
+checkAuth: async () => {
+	set({ checkingAuth: true });
 
-		try {
-			const response = await axios.get(
-				"/auth/profile"
-			);
+	try {
+		const response = await axios.get("/auth/profile");
 
-			set({
-				user: response.data,
-				checkingAuth: false,
-			});
-		} catch (error) {
-			console.log(error.message);
+		set({
+			user: response.data,
+			checkingAuth: false,
+		});
+	} catch (error) {
+		console.log("AUTH ERROR:", error);
 
-			set({
-				checkingAuth: false,
-				user: null,
-			});
-		}
-	},
+		console.log(
+			"SERVER RESPONSE:",
+			error.response?.data
+		);
+
+		console.log(
+			"ERROR MESSAGE:",
+			error.message
+		);
+
+		set({
+			user: null,
+			checkingAuth: false,
+		});
+	}
+},
 
 
 
