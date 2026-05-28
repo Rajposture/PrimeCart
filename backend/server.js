@@ -24,18 +24,27 @@ const PORT =
 const __dirname =
 	path.resolve();
 
-/* CORS */
+/* ========================================
+   CORS CONFIGURATION
+======================================== */
+
 app.use(
 	cors({
-		origin: [
-			"https://prime-cart-one.vercel.app",
-			"http://localhost:5173",
-		],
+		origin:
+			process.env
+				.NODE_ENV ===
+			"production"
+				? "https://prime-cart-one.vercel.app"
+				: "http://localhost:5173",
+
 		credentials: true,
 	})
 );
 
-/* MIDDLEWARES */
+/* ========================================
+   MIDDLEWARES
+======================================== */
+
 app.use(
 	express.json({
 		limit: "10mb",
@@ -44,7 +53,10 @@ app.use(
 
 app.use(cookieParser());
 
-/* ROUTES */
+/* ========================================
+   API ROUTES
+======================================== */
+
 app.use(
 	"/api/auth",
 	authRoutes
@@ -80,14 +92,31 @@ app.use(
 	userRoutes
 );
 
+/* ========================================
+   HEALTH CHECK ROUTE
+======================================== */
 
-
-
-/* START SERVER */
-app.listen(PORT, () => {
-	console.log(
-		`Server running on port ${PORT}`
+app.get("/", (req, res) => {
+	res.send(
+		"PrimeCart Backend API Running Successfully"
 	);
+});
 
-	connectDB();
+/* ========================================
+   START SERVER
+======================================== */
+
+app.listen(PORT, async () => {
+	try {
+		await connectDB();
+
+		console.log(
+			`✅ Server running on port ${PORT}`
+		);
+	} catch (error) {
+		console.log(
+			"❌ Database Connection Error:",
+			error.message
+		);
+	}
 });
