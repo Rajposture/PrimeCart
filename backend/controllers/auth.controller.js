@@ -50,6 +50,7 @@ const cookieOptions = {
 		"production"
 			? "none"
 			: "strict",
+			path:"/",
 };
 
 /* SET COOKIES */
